@@ -10,12 +10,14 @@ import {
 import { Menu, MenuItem } from '@mui/material';
 import ArrowOutwardIcon from '@mui/icons-material/ArrowOutward';
 import ShoppingCartIcon from '@mui/icons-material/ShoppingCart';
+import SignInIcon from '@mui/icons-material/Login';
 import SignOutIcon from '@mui/icons-material/Logout';
 import MenuIcon from '@mui/icons-material/Menu';
 
 import Cart from "../Cart/Cart";
 import { useAppStore } from '../../store';
 import stoneTowerLogo from '../../assets/stone-tower.svg';
+import { client } from "../../api";
 
 
 const Navbar = () => {
@@ -33,6 +35,11 @@ const Navbar = () => {
 
     let isPos = (location.pathname === "/pos");
     let isCustomerPos = (location.pathname.includes("/products"));
+
+    // const handleSeedProducts = async () => {
+    //     const result = await client.get('/tables/seed');
+    //     console.log("handleSeedProducts: ", result);
+    // }
 
     const handleSignout = () => {
         appStore.setState({
@@ -134,6 +141,13 @@ const Navbar = () => {
                                                 Order Now
                                             </Button>
                                         </ListItem>
+                                        <ListItem sx={{ display: "flex", justifyContent: "center" }}>
+                                            <Tooltip title="Signin">
+                                                <IconButton color="inherit" onClick={() => navigate('/pos')}>
+                                                    <SignInIcon />
+                                                </IconButton>
+                                            </Tooltip>
+                                        </ListItem>
                                     </List>
                                 ) : (
                                     <List sx={{ textAlign: "right" }}>
@@ -176,6 +190,18 @@ const Navbar = () => {
                                 <Button variant="contained" color="error" sx={{ borderRadius: "10px" }} onClick={() => navigate("/products/favorites")}>
                                     Order Now
                                 </Button>
+                            </ListItem>
+                            {/* <ListItem>
+                                <Button variant="contained" color="error" sx={{ borderRadius: "10px" }} onClick={handleSeedProducts}>
+                                    Seed Products
+                                </Button>
+                            </ListItem> */}
+                            <ListItem>
+                                <Tooltip title="Signin">
+                                    <IconButton color="inherit" onClick={() => navigate('/pos')}>
+                                        <SignInIcon />
+                                    </IconButton>
+                                </Tooltip>
                             </ListItem>
                         </List>
                     </Box>

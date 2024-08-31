@@ -1,10 +1,7 @@
 
 const trustedSources: string[] = [
-    Bun.env.OPENFITNESS_HOSTNAME as string,
-    'http://localhost:3000',
+    Bun.env.HOSTNAME as string,
     'http://localhost:3001',
-    'http://localhost:3002',
-    'http://localhost:3003'
 ];
 
 const allowedHeaders: string[] = [

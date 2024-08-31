@@ -9,7 +9,7 @@ import { showRoutes } from 'hono/dev'
 // Utilities
 import { initDatabase } from '../config/supabase.config';
 import { createDatabaseMiddleware } from '../database';
-import { corsConfig } from '../config/clients.config';
+import { corsConfig } from '../config/cors.config';
 import { routes } from './routes';
 
 

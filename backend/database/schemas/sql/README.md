@@ -67,3 +67,16 @@ name: The name of the menu item.
 price: The price of the menu item, with two decimal places.
 created_at: The timestamp of when the record was created, defaulting to the current time.
 updated_at: The timestamp of the last update to the record, defaulting to the current time.
+
+## Products
+
+Explanation:
+
+id: A BIGINT primary key to uniquely identify each product.
+name: A VARCHAR(255) column to store the product name.
+recipe: A TEXT column to store the recipe, which can be a long string.
+image: A TEXT column to store the URL of the image.
+category: A VARCHAR(100) column to categorize the product, such as "drinks".
+price: A NUMERIC(10, 2) column to store the price, allowing for precision with two decimal places.
+description: A TEXT column to store a longer description of the product.
+image_names: A TEXT[] (array of text) column to store multiple image names, which aligns with the imageName array in the JSON.

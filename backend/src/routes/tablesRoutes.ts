@@ -1,14 +1,50 @@
 import { Hono } from 'hono'
 import { Context } from 'hono';
 import { validator } from 'hono/validator';
-
+import { eq } from 'drizzle-orm';
+import { supabase } from '../../config/supabase.config';
 import * as schema from '../../database/schemas';
-
 
 const tablesRoutes = new Hono();
 
 
 tablesRoutes
+    .get('/seed', async (c: Context) => {
+        const { database } = c.var;
+
+        try {
+            const result = await database
+                .query
+                .products
+                .findMany();
+
+            console.log("result: ", result);
+
+            const finalResult = await Promise.all(
+                result.map(async (product: any) => {
+                    const { data } = await supabase
+                        .storage
+                        .from('product_images')
+                        .getPublicUrl(product.image_name);
+
+                    const [updateResult] = await database
+                        .update(schema.products)
+                        .set({ image: data.publicUrl })
+                        .where(eq(schema.products.id, product.id))
+                        .returning();
+
+                    return updateResult;
+                })
+            );
+
+            return c.json(finalResult);
+
+        } catch (error: any) {
+            console.error("Error inserting into tables: ", error);
+            
+            return c.text(error.message, 500);
+        }
+    })
     .get('/', async (c: Context) => {
         const { database } = c.var;
         

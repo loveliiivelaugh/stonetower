@@ -110,3 +110,19 @@ export const customers = pgTable("customers", {
 export type Customer = InferModel<typeof customers>;
 export type NewCustomer = InferModel<typeof customers, "insert">;
 
+
+export const products = pgTable('products', {
+    id: serial('id').primaryKey(),
+    name: text('name').notNull(),
+    recipe: text('recipe').notNull(),
+    image: text('image').notNull(),
+    category: text('category').notNull(),
+    price: numeric('price', { precision: 10, scale: 2 }).notNull(),
+    description: text('description'),
+    imageNames: jsonb('image_names').notNull(), // Drizzle's array type
+    image_name: text('image_name').notNull(),
+});
+
+// Define the TypeScript types for the model
+export type Product = InferModel<typeof products>;
+export type NewProduct = InferModel<typeof products, 'insert'>;

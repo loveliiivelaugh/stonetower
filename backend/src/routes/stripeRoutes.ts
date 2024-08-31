@@ -135,12 +135,13 @@ async (c: Context) => {
             //     lte: now.toJSON()
             // }
         })).data;
-        // const databaseProducts = await database
-        //     .query
-        //     .products
-        //     .findMany();
 
-        const combinedProducts = menuItems.map((item: any) => {
+        const databaseProducts = await database
+            .query
+            .products
+            .findMany();
+
+        const combinedProducts = databaseProducts.map((item: any) => {
             const product = stripeProducts.find((p: any) => (p.name === item.name));
             return { ...item, stripe: product };
         });

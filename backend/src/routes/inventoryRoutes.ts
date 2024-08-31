@@ -13,7 +13,7 @@ inventoryRoutes
         try {
             const result = await database
                 .query
-                .inventory
+                .products
                 .findMany();
                 
             return c.json(result);

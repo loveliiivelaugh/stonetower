@@ -1,11 +1,11 @@
 // Packages
-import { useQuery } from "@tanstack/react-query";
+// import { useQuery } from "@tanstack/react-query";
+// import { Skeleton } from "@mui/material";
 import { motion } from "framer-motion";
-import { Skeleton } from "@mui/material";
 import { LazyLoadImage } from 'react-lazy-load-image-component';
 import 'react-lazy-load-image-component/src/effects/blur.css';
 // Utilities
-import { paths, queries } from "../api";
+// import { paths, queries } from "../api";
 // Styles
 import { Styled } from "../theme/common";
 
@@ -67,12 +67,17 @@ interface ImagePreLoaderProps {
 };
 
 const ImagePreLoader = ({ item, children }: ImagePreLoaderProps) => {
-    const name = ((item.imageName as string[])[0] || "");
-    const imageQuery = useQuery(queries.query(paths.getImage + name));
-    return ({
-        error: <>Error Loading Image</>,
-        pending: <></>,
-        loading: <Skeleton variant="rectangular" sx={{ width: "100%", height: "200px" }} />,
-        success: children({ image: imageQuery.data }),
-    }[imageQuery.status]);
-};
+    console.log("ImagePreLoader.item: ", item);
+    return children({ image: item.image });
+}
+// const ImagePreLoader2 = ({ item, children }: ImagePreLoaderProps) => {
+//     // const name = ((item.imageName as string[])[0] || "");
+//     // const imageQuery = useQuery(queries.query(paths.getImage + name));
+//     const imageQuery = useQuery(queries.query(item.image));
+//     return ({
+//         pending: <></>,
+//         loading: <Skeleton variant="rectangular" sx={{ width: "100%", height: "200px" }} />,
+//         error: <Skeleton variant="rectangular" sx={{ width: "200px", height: "200px" }}>Error Loading Image</Skeleton>,
+//         success: children({ image: imageQuery.data }),
+//     }[imageQuery.status]);
+// };
