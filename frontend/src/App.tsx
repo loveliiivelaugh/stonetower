@@ -1,9 +1,16 @@
+
 // Components
 import AuthForm from './Auth/AuthForm';
-import Cart from './components/Cart/Cart';
+// import Cart from './components/Cart/Cart';
 import Navbar from './components/Nav/Navbar';
 import TableLayout from './components/TableLayout/TableLayout';
 import OrderView from './components/OrderView/OrderView';
+import ActiveOrdersView from './components/OrderView/ActiveOrdersView';
+import AdminDashboard from './components/Admin/AdminDashboard';
+import CheckoutView from './components/CheckoutView';
+
+// Pages
+import LandingPage from './components/pages/LandingPage';
 
 // Store
 import { useAppStore } from './store';
@@ -27,14 +34,18 @@ function App() {
       <Navbar />
 
       {/* Shopping Cart */}
-      <Cart />
+      {/* <Cart /> */}
 
       {/* Active View */}
       {{
+        "landing": ( <LandingPage /> ),
         "signin": ( <AuthForm /> ),
         "tables": ( <TableLayout /> ),
         "order": ( <OrderView /> ),
-        "checkout": ( <></> )
+        "product": ( <>Individual Product Page</> ),
+        "orders": ( <ActiveOrdersView /> ),
+        "checkout": ( <CheckoutView /> ),
+        "admin": ( <AdminDashboard /> )
       }[activeView]}
     </>
   )

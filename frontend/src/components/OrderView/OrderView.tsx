@@ -1,26 +1,19 @@
 import { Box, Grid, Tooltip, Typography } from "@mui/material";
-import { Button, Card, CardActionArea, CardContent } from '@mui/material';
 import { BottomNavigation, BottomNavigationAction, Tabs } from '@mui/material';
 
+import ProductsSection from "../pages/Landing/ProductsSection";
 import { useAppStore } from "../../store";
-import cms from '../../store/cms';
 
 
 const topics = ["Drinks", "Apps", "Pizza", "Desserts"];
-
-const [drinks, apps, pizza, desserts] = Object
-    .keys(cms)
-    .map((key: string) => cms[key as keyof typeof cms]
-        .map((item: any) => ({
-            ...item,
-            price: Math.round(Math.random() * 100),
-            description: `Description ${item.id}; Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed euismod, nisl vel ultricies lacinia, nisl nisl aliquam`,
-        }))
-    );
-
-const items = { drinks, apps, pizza, desserts };
-
 const lastOrderedText = `Last Ordered:\n\nDrinks:\n\nApps:\n\nPizza:\n\nDesserts:`;
+const categoryMap = {
+    favorites: "favorites",
+    pizza: "pizzas",
+    apps: "appetizers",
+    drinks: "drinks",
+    desserts: "desserts"
+};
 
 const OrderView = () => {
     const appStore = useAppStore();
@@ -53,34 +46,10 @@ const OrderView = () => {
             </Grid>
 
             {/* Products */}
-            <Grid item sm={12}>
-                <Grid container spacing={2} sx={{ justifyContent: "center", px: 2, mb: 10 }}>
-                    {items[appStore.activeCategory as keyof typeof items]
-                        .map(item => (
-                            <Grid item sm={3} key={item.id}>
-                                <Card elevation={4} sx={{ bgcolor: "inherit", color: "inherit", borderRadius: "10px" }}>
-                                    <img src="https://picsum.photos/200" alt="Product" style={{ width: "100%" }} />
-                                    <CardContent>
-                                        <Typography variant="h6" component="h6">
-                                            {item.name}
-                                        </Typography>
-                                        <Typography variant="body1" component="p">
-                                            {`$${item.price}` || "$0.00"}
-                                        </Typography>
-                                        <Typography variant="subtitle1" component="p">
-                                            {item.description}
-                                        </Typography>
-                                    </CardContent>
-                                    <CardActionArea sx={{ p: 2, textAlign: "right" }}>
-                                        <Button color="inherit" variant="outlined" onClick={() => appStore.addItem(item)}>
-                                            Add To Cart
-                                        </Button>
-                                    </CardActionArea>
-                                </Card>
-                            </Grid>
-                        ))}
-                </Grid>
-            </Grid>
+            <ProductsSection 
+                header={false} 
+                filterMap={(key) => (key === categoryMap[appStore.activeCategory as keyof typeof categoryMap])} 
+            />
 
             {/* Bottom Navigation */}
             <Box sx={{ position: "fixed", bottom: 0, left: 0, right: 0, maxWidth: "100vw", overflow: "auto" }}>
@@ -102,7 +71,6 @@ const OrderView = () => {
                     ))}
                 </BottomNavigation>
             </Box>
-
 
         </Grid>
     )

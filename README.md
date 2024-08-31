@@ -1,6 +1,6 @@
-# React Restaurant-template
+# Stone Tower Pizza
 
-## React + Vite + Bun + Supabase + Stripe
+## Features
 
 ### About
 
@@ -8,25 +8,10 @@ Full stack restaurant application built with React TypeScript Zustand Stripe and
 
 ### Table of Contents
 
-- [Installation](#installation)
-- [Configuration](#configuration)
-- [Features](#features)
-- [Example](#example)
+- [Stone Tower Pizza](#stone-tower-pizza)
+  - [Features](#features)
+    - [About](#about)
+    - [Table of Contents](#table-of-contents)
+  - [Installation](#installation)
 
-### Frontend
-
-- Technologies
-  - [React](https://reactjs.org/)
-  - [Vite](https://vitejs.dev/)
-  - [Bun](https://bun.sh/)
-  - [Supabase](https://supabase.com/)
-  - [Stripe](https://stripe.com/)
-  - [MUI](https://mui.com/)
-  - [Zustand](https://github.com/pmndrs/zustand)
-
-### Backend
-
-- [Bun](https://bun.sh/)
-- [Hono](https://hono.dev/)
-- [Supabase](https://supabase.com/)
-- [Stripe](https://stripe.com/)
+## Installation

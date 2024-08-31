@@ -1,9 +1,41 @@
 import { Hono } from 'hono'
+// Middleware
+import { cors } from 'hono/cors';
+import { logger } from 'hono/logger';
+import { poweredBy } from 'hono/powered-by';
+import { prettyJSON } from 'hono/pretty-json';
+import { secureHeaders } from 'hono/secure-headers'
+import { showRoutes } from 'hono/dev'
+// Utilities
+import { initDatabase } from '../config/supabase.config';
+import { createDatabaseMiddleware } from '../database';
+import { corsConfig } from '../config/clients.config';
+import { routes } from './routes';
 
-const app = new Hono()
 
-app.get('/', (c) => {
-  return c.text('Hello Hono!')
-})
+// Server
+const port = Bun.env.PORT || 5001;
 
-export default app
+const app = new Hono();
+
+// Middleware
+app.use(logger());
+app.use(poweredBy());
+app.use(cors(corsConfig));
+app.use(prettyJSON({ space: 4 }));
+app.use(secureHeaders());
+
+// Database (For Production: Supabase *for now*)
+app.use(createDatabaseMiddleware(initDatabase()));
+
+// Routes
+app.route('/', routes);
+
+showRoutes(app, {
+  verbose: true
+});
+
+export default { 
+  port, 
+  fetch: app.fetch
+};

@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react'
+// import { useLocation } from 'react-router-dom';
 import { ReactNode } from 'react';
 import { Box, Button } from '@mui/material';
 
@@ -7,18 +8,13 @@ import { supabase } from './supabase'
 import { useSupabaseStore } from '../store';
 
 export function AuthProvider({ children }: { children: ReactNode }) {
+    // const location = useLocation();
     const supabaseStore = useSupabaseStore();
     const [session, setSession] = useState<null | any>(null)
     const [userType, setUserType] = useState<"admin" | "guest" | null>(null);
 
     async function handleSuccess(data: any) {
-        console.log("handleSuccess: ", data);
-        supabaseStore.setSession({ 
-            ...data, 
-            // roles: data.roles
-            //     .map(({ role }: { role: string }) => JSON.parse(role))[0]
-        });
-        // Get App Config right here
+        supabaseStore.setSession(data);
     };
 
     async function handleGuestSignIn() {
@@ -32,7 +28,6 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
     async function handleSubmit(form: { email: string, password: string }) {
         setUserType("admin");
-
         // Updated Flow:
         const response = await supabase.auth.signInWithPassword(form);
 
@@ -53,7 +48,9 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         return () => subscription.unsubscribe()
     }, [])
 
-    if (!session && !userType) return (
+    const isPos = (window.location.pathname === "/pos");
+
+    if (isPos && !session && !userType) return (
         <Box sx={{ height: "100vh", width: "100vw", display: "flex", justifyContent: "center", alignItems: "center" }}>
             <Box sx={{ border: "1px solid white", borderRadius: 1, p: 3, display: "block" }}>
                 <Button onClick={() => setUserType("admin")}>Continue to Sign In</Button>
@@ -62,7 +59,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         </Box>
     );
 
-    if (!supabaseStore.session && (userType === "admin")) {
+    if (isPos && !supabaseStore.session && (userType === "admin")) {
         return <AuthForm handleSubmit={handleSubmit} handleCancel={() => setUserType(null)} />
     }
 
