@@ -1,4 +1,4 @@
-import { useLocation, useNavigate, useParams } from 'react-router-dom';
+import { useLocation, useNavigate } from 'react-router-dom';
 import { Box, Button, Grid, Typography } from '@mui/material';
 import { List, ListItem, ListItemText } from '@mui/material';
 
@@ -9,12 +9,12 @@ import Image from '../Image';
 const ProductSection = () => {
     const appStore = useAppStore();
     const navigate = useNavigate();
-    const params = useParams();
+    // const params = useParams();
     const location = useLocation();
     console.log("ProductSection: ", location)
     const isPos = (location.pathname.includes("/pos"));
     
-    const product = appStore.selectedProduct || {};
+    const product = appStore.selectedProduct;
     // const product = Object.assign(
     //     {}, 
     //     ...Object
@@ -41,10 +41,10 @@ const ProductSection = () => {
         <Grid container mt={12} p={2}>
             <Grid item xs={12}>
                 <Typography variant="h3" gutterBottom>
-                    {product.category}
+                    {product?.category}
                 </Typography>
                 <Typography variant="h4" gutterBottom>
-                    {product.name}
+                    {product?.name}
                 </Typography>
             </Grid>
             <Grid item md={6}>
@@ -53,14 +53,14 @@ const ProductSection = () => {
             <Grid item md={6}>
                 <List dense>
                     {Object
-                        .keys(product)
+                        .keys(product as any)
                         .map((key: string) => (
                             ["string", "number"]
-                                .includes(typeof(product[key as keyof typeof product])) 
+                                .includes(typeof((product as any)[key as keyof typeof product])) 
                             && (key !== "image")
                         ) && (
                             <ListItem key={key}>
-                                <ListItemText primary={`${product[key as keyof typeof product]}`} />
+                                <ListItemText primary={`${(product as any)[key as keyof typeof product]}`} />
                             </ListItem>
                         ))
                     }

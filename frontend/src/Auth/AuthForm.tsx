@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Box, Button, Grid, TextField } from '@mui/material'
 import { useForm } from '@tanstack/react-form'
-import { client, paths } from '../api';
+import { client } from '../api';
 import { useAppStore, useSupabaseStore } from '../store';
 
 
@@ -122,7 +122,7 @@ const AuthForm = (props: any) => {
                                 </form.Field>
                             </Grid>
                         )),
-                        "employee": employeeFieldDefinitions.map((field, index) => (
+                        "employee": employeeFieldDefinitions.map((_, index) => (
                             <Grid item xs={12} key={index}>
                                 <form.Field name={
                                     "emplyoee_id"

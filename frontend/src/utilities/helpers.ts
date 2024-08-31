@@ -13,7 +13,7 @@
         for (const item of items) {
             // const response = (await client.post('/stripe/product', convertToStripeProduct(item))).data;
             const response = {}
-            // console.log("generateResponses: " + item.id, response);
+            console.log("generateResponses: " + item.id, response);
             responses.push(response);
             await delay(5500); // 5.5-second delay
         }

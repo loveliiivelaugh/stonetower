@@ -19,7 +19,7 @@ interface AppStore {
 
   // Customer UX
   selectedProduct: ProductProps | null;
-  setSelectedProduct: (product: ProductProps) => void;
+  setSelectedProduct: (product: ProductProps | null) => void;
 
   // *** Service + Ordering ***
   // Tables View
@@ -56,7 +56,7 @@ const useAppStore = create<AppStore>((set) => ({
   setSelectedTable: (table: string) => set({ selectedTable: table, activeView: "order" }),
 
   selectedProduct: null,
-  setSelectedProduct: (product: ProductProps) => set({ selectedProduct: product }),
+  setSelectedProduct: (product: ProductProps | null) => set({ selectedProduct: product }),
 
   activeView: "admin",
   setActiveView: (view: string) => set({ activeView: view }),

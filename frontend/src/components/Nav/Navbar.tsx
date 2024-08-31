@@ -56,7 +56,15 @@ const Navbar = () => {
         navigate(navigateTo);
     };
 
-    const MenuProps = {
+    const MenuProps: {
+        anchorEl: any;
+        id: string;
+        keepMounted: boolean;
+        open: boolean;
+        onClose: () => void;
+        anchorOrigin: any;
+        transformOrigin: any;
+    } = {
         anchorEl: menuRef.current,
         id: 'menu-appbar',
         keepMounted: true,

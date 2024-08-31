@@ -24,7 +24,7 @@ interface ProductProps {
 };
 
 interface ImageProps {
-    item: ProductProps
+    item?: ProductProps
     handleClick?: () => void
     sx?: any
 };
@@ -38,23 +38,24 @@ const Image = ({
         width: "100%",
         Height: "auto"
     }
-}: ImageProps) => ( // Prop Types
-    <Styled.PictureFrame
-        component={motion.div}
+}: ImageProps | any) => ( // Prop Types
+    <motion.div
         whileHover={{ scale: 1.1 }}
         onClick={handleClick}
     >
-        <ImagePreLoader item={item}>
-            {({ image }: { image: string }) => (
-                <LazyLoadImage
-                    alt={item.name}
-                    height={sx?.height || "auto"}
-                    src={image} // use normal <img> attributes as props
-                    width={sx?.width || "100%"}
-                />
-            )}
-        </ImagePreLoader>
-    </Styled.PictureFrame>
+        <Styled.PictureFrame>
+            <ImagePreLoader item={item}>
+                {({ image }: { image: string }) => (
+                    <LazyLoadImage
+                        alt={item.name}
+                        height={sx?.height || "auto"}
+                        src={image} // use normal <img> attributes as props
+                        width={sx?.width || "100%"}
+                    />
+                )}
+            </ImagePreLoader>
+        </Styled.PictureFrame>
+    </motion.div>
 );
 
 

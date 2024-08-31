@@ -28,6 +28,7 @@ const AdminDashboard = () => {
     const handleChartButtons = (button: string) => {
         // Can handle any middle logic here
         // ...
+        console.log("handleChartButtons: ", button);
 
         setModalOpen(true);
     };

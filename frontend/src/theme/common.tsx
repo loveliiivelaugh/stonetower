@@ -1,11 +1,19 @@
 import { Box, Grid } from '@mui/material';
 import { styled } from '@mui/material/styles';
 
+interface TableIconProps {
+    isTableActive: boolean;
+    // Add other props here...
+    key: number; 
+    children: number; 
+    onClick: () => Promise<void>;
+}
+
 // Custom styles used throughout the application
 export const Styled = {
 
     // ./components/TableLayout/TableLayout.tsx
-    TableIcon: styled(Box, { shouldForwardProp: (prop) => prop !== "isTableActive" })(({ isTableActive, theme }) => ({
+    TableIcon: styled(Box, { shouldForwardProp: (prop) => prop !== "isTableActive" })(({ isTableActive, theme }: any) => ({
         height: "50px",
         width: "50px",
         textAlign: "center",
@@ -32,7 +40,7 @@ export const Styled = {
                     cursor: "pointer"
                 }
             }
-    })),
+    })) as React.ComponentType<TableIconProps>,
 
     // ./components/Admin/AdminDashboard.tsx
     ModalContainer: styled(Box)(({ theme }) => ({
@@ -47,7 +55,7 @@ export const Styled = {
     })),
 
     // ./components/Image.tsx
-    PictureFrame: styled(Box)(({ theme }) => ({
+    PictureFrame: styled(Box)(() => ({
         border: "2px solid #a33", 
         borderRadius: "10px", 
         "&:hover": { 
@@ -56,7 +64,7 @@ export const Styled = {
     })),
 
     // Shared styles
-    BottomNavWrapper: styled(Box)(({ theme }) => ({
+    BottomNavWrapper: styled(Box)(() => ({
         position: "fixed",
         bottom: 0,
         left: 0,

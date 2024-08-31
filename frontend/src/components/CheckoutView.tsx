@@ -1,5 +1,5 @@
 // Packages
-import { useParams } from "react-router-dom";
+// import { useParams } from "react-router-dom";
 import { useQuery } from "@tanstack/react-query";
 import { loadStripe } from '@stripe/stripe-js';
 import {
@@ -83,12 +83,17 @@ export const Return = () => {
     const queryString = window.location.search;
     const urlParams = new URLSearchParams(queryString);
     const sessionId = urlParams.get('session_id');
-    const { session_id } = useParams();
+    // const { session_id } = useParams();
     
     const queryPath = (paths.getCheckoutStatus + `?session_id=${sessionId}`);
     const sessionStatusQuery = useQuery(queries.query(queryPath));
 
-    if (sessionStatusQuery.data?.status === "complete") confetti();
+    if (sessionStatusQuery.data?.status === "complete") confetti({
+        particleCount: 200,
+        startVelocity: 30,
+        spread: 360,
+        zIndex: 9999
+    });
     
     console.log({ sessionStatusQuery, appStore });
     return ({

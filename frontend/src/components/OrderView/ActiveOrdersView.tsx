@@ -7,7 +7,7 @@ import { Styled } from "../../theme/common";
 import { client, paths, queries } from "../../api";
 
 
-const orderTypes = ["Pickup", "Delivery", "Dine-in"];
+// const orderTypes = ["Pickup", "Delivery", "Dine-in"];
 const topics = ["All", "Bar", "Kitchen", "Pantry"];
 const categories = ["drinks", "appetizers", "pizzas", "desserts"];
 

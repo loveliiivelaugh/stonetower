@@ -6,7 +6,7 @@
 import { createClient } from '@supabase/supabase-js';
 
 const { 
-    VITE_SUPABASE_CONNECTION_STRING: connectionString,
+    // VITE_SUPABASE_CONNECTION_STRING: connectionString,
     VITE_SUPABASE_KEY,
     VITE_SUPABASE_URL
 } = import.meta.env;
