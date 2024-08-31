@@ -17,7 +17,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import Cart from "../Cart/Cart";
 import { useAppStore } from '../../store';
 import stoneTowerLogo from '../../assets/stone-tower.svg';
-import { client } from "../../api";
+// import { client } from "../../api";
 
 
 const Navbar = () => {
